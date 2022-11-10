@@ -33,7 +33,6 @@ const Home: React.FC = () => {
 
   }
 
-
   //view company
   let history = useHistory();
   const viewCompany = () => {
@@ -56,16 +55,13 @@ const Home: React.FC = () => {
       <Row>
         <Col>
           <Button onClick={viewCompany}>View Companies</Button>{' '}
-          <Link to='/Companies' className="btn btn-primary">Companies Using Link</Link>{' '}
-          <Link to='/EmployeesModal' className="btn btn-primary">Employees Modal</Link>
+          {/*    <Link to='/Companies' className="btn btn-primary">Companies Using Link</Link>{' '}
+          <Link to='/EmployeesModal' className="btn btn-primary">Employees Modal</Link> */}
         </Col>
         <Col>
           <Button onClick={retrieveAndStoreKey}>Store key</Button>
           {" "}
           <Button onClick={async () => await retrieveAndStoreCompanies()}>Store Companies</Button>
-          {" "}
-          <Link to='/CompanyCard' className="btn btn-primary">Company card</Link>{' '}
-
 
         </Col>
       </Row>

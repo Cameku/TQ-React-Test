@@ -1,18 +1,17 @@
+import { type } from 'os';
 import React, { useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import { Employee } from '../models/Employee';
 
-interface Props {
-    name: string;
-    age: number;
-}
 
-const EmployeesModal: React.FC<Props> = ({ name, age }) => {
+const EmployeesModal: React.FC<{ employees: Employee[] }> = ({ employees }) => {
+
     const [show, setShow] = useState(false);
-
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
 
     return (
         <>
@@ -28,15 +27,27 @@ const EmployeesModal: React.FC<Props> = ({ name, age }) => {
                                 <Modal.Title>Employees Details</Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
-                                <p>Name: {name} </p>
-                                <p>Age: {age} </p>
+                                <Container>
+                                    {
+                                        employees?.length > 0 ? (
+                                            employees.map((item) => (
+                                                <div>
+                                                    <Row>
+                                                        <Col>Name: <b>{item.name} </b> </Col>
+                                                        <Col>Age: <b>{item.age} </b></Col>
+                                                    </Row>
+                                                </div>
+                                            ))
+                                        ) : (
+                                            <p>Something went wrong with modal</p>
+                                        )
+                                    }
+
+                                </Container>
                             </Modal.Body>
                             <Modal.Footer>
                                 <Button variant="secondary" onClick={handleClose}>
                                     Close
-                                </Button>
-                                <Button variant="primary" onClick={handleClose}>
-                                    Next
                                 </Button>
                             </Modal.Footer>
                         </Modal>
