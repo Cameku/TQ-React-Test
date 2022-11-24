@@ -1,12 +1,13 @@
-import React, { useState } from 'react'
-import { Container, Row, Col, Button } from 'react-bootstrap'
+import React from 'react'
+import { Container, Row, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
 import { Company } from '../models/Company';
-import CompanyCard from '../views/CompanyCard'
+import CompanyCard from '../views/CompanyCard';
 
 
+const Companies: React.FC = (props) => {
 
-const Companies: React.FC = () => {
+
 
   const companies = window.localStorage.getItem('companies');
   const companiesDetails: Company[] = JSON.parse(companies!);
@@ -26,14 +27,15 @@ const Companies: React.FC = () => {
 
       {
         companiesDetails?.length > 0 ? (
-          companiesDetails.map((company) => (
-            <Container>
+          companiesDetails.map((company, index) => (
+            <Container key={index}>
               <br />
               <Row>
                 <Col>
                   <CompanyCard name={company.name} address={company.address} url={company.url} employees={company.employees} />
                 </Col>
               </Row>
+
             </Container>
           ))
         ) : (

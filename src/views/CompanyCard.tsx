@@ -1,8 +1,7 @@
 import React from 'react';
-import { Button, Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
 import { Company } from '../models/Company';
-import { Employee } from '../models/Employee';
 import EmployeesModal from './EmployeesModal';
 //import NotFound from '../routes/NotFound';
 

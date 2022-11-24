@@ -1,4 +1,3 @@
-import { type } from 'os';
 import React, { useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
@@ -30,8 +29,8 @@ const EmployeesModal: React.FC<{ employees: Employee[] }> = ({ employees }) => {
                                 <Container>
                                     {
                                         employees?.length > 0 ? (
-                                            employees.map((item) => (
-                                                <div>
+                                            employees.map((item, index) => (
+                                                <div key={index}>
                                                     <Row>
                                                         <Col>Name: <b>{item.name} </b> </Col>
                                                         <Col>Age: <b>{item.age} </b></Col>

@@ -1,4 +1,4 @@
-# TQ React Interview Application
+# React Interview Application
 
 This application is a pre-interview test designed to evaluate candidate performance. Please follow the steps below, and submit a zipped file (excluding build & node_modules folders) as requested.
 
@@ -35,12 +35,13 @@ This test is designed to last 90 minutes.
 10. Migrate your data and API logic into Redux, utilizing the Redux Thunk library. We have provided a blank Redux store for you to use.
 
 # Building the project
+
 - `npm install` Installs all required packages.
 
 - `npm start` Starts the development server for debugging.
 
-
 # Notes
+
 - [React Bootstrap](https://react-bootstrap.github.io/components/alerts) is the component library of choice. Please use this to accelerate the development process.
 
 - API URL: https://tqinterviewapi.azurewebsites.net (This will also link to the swagger page to view API endpoints).

@@ -15,9 +15,9 @@ const Navigation: React.FC = () => {
             <Navbar.Toggle aria-controls='basic-navbar-nav' />
             <Nav className='ml-auto'>
               <Nav.Link as={Link} to={"/companies"}>Companies</Nav.Link>
-              <Nav.Link as={Link} to={"/companycard"}>Company card</Nav.Link>
+              {/* <Nav.Link as={Link} to={"/companycard"}>Company card</Nav.Link> */}
               <Nav.Link as={Link} to={"/createcompany"}>Create Company</Nav.Link>
-              <Nav.Link as={Link} to={"/employeesmodal"}>Employees Modal</Nav.Link>
+              {/* <Nav.Link as={Link} to={"/employeesmodal"}>Employees Modal</Nav.Link> */}
             </Nav>
           </Navbar>
         </Col>
