@@ -1,5 +1,6 @@
-import React, { useState, useRef } from 'react'
+import React, { useState } from 'react'
 import { Container, Row, Col, Form, Button, } from 'react-bootstrap';
+import { ApiHelper } from '../helpers/ApiHelper';
 import { Company } from '../models/Company';
 import { Employee } from '../models/Employee';
 
@@ -15,31 +16,30 @@ const CreateCompany: React.FC = () => {
   const [employeeList, setEmployeeList] = useState<Employee[]>([]);
 
 
+
   //Post company data
   const submitCompany = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
-    const company: Company = { name, address, url, employees: [{ name: employeeName, age: employeeAge }] }
+    const company: Company = { name, address, url, employees: employeeList }
     console.log(company);
 
-    await fetch("https://tqinterviewapi.azurewebsites.net/api/Companies?key=4777644c-b557-48ea-bff1-9b93599f0f7a", {
-
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(company)
-
-    }).then(() => { console.log('New company added ') }).catch(error => console.log(error))
+    //Instantiate api helper
+    const apiHelper = new ApiHelper();
+    try {
+      await apiHelper.submitCompanyAsync(company);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
-  //Employee list
+  //Add to employee list
   const addEmployees = () => {
     setEmployeeList([...employeeList, { name: employeeName, age: employeeAge }])
-    console.log(employeeList);
-
+    setEmployeeName('');
+    setEmployeeAge(0);
   }
 
+  //Remove from employee list
   const removeEmployee = (index: number) => {
     const list = [...employeeList]
     list.splice(index, 1);
@@ -124,11 +124,14 @@ const CreateCompany: React.FC = () => {
               employeeList.map((employee, index) => (
                 <div key={index}>
                   <Row>
-                    <Col>Name: <b>{employee.name} </b> </Col>
-                    <Col>Age: <b>{employee.age} </b></Col>
-                    <Button style={{ marginBottom: '5px' }} variant="danger" type="submit">
-                      Remove Employee
-                    </Button>
+                    <Col>Name: {employee.name}</Col>
+                    <Col>Age: {employee.age}</Col>
+                    <Button
+                      variant='danger'
+                      style={{ marginBottom: "5px" }}
+                      type="submit"
+                      onClick={() => removeEmployee(index)}
+                    >Remove Employee</Button>
                   </Row>
                 </div>
               ))

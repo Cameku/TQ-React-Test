@@ -7,15 +7,11 @@ import CompanyCard from '../views/CompanyCard';
 
 const Companies: React.FC = (props) => {
 
-
-
   const companies = window.localStorage.getItem('companies');
   const companiesDetails: Company[] = JSON.parse(companies!);
 
   return (
     <div>
-
-
       <Container>
         <Row>
           <Col>

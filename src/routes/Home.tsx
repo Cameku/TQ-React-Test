@@ -8,25 +8,23 @@ import { ApiHelper } from '../helpers/ApiHelper';
 
 
 const Home: React.FC = () => {
-  // const [key, setKey] = useState('');
-  //const [compData, setCompData] = useState<Company[]>([]);
 
   useEffect(() => {
-    retrieveAndStoreKey();
-    retrieveAndStoreCompanies();
+    retrieveAndStoreKeyAsync();
+    retrieveAndStoreCompaniesAsync();
   }, [])
 
   //Instantiate api helper
   const apiHelper = new ApiHelper();
 
   //Retrieve and store key
-  const retrieveAndStoreKey = async () => {
+  const retrieveAndStoreKeyAsync = async () => {
     const key = await apiHelper.getKeyAsync('url');
     window.localStorage.setItem('key', key)
   }
 
   //Retrieve and store company
-  const retrieveAndStoreCompanies = async () => {
+  const retrieveAndStoreCompaniesAsync = async () => {
     try {
       const companies = await apiHelper.getCompaniesAsync(window.localStorage.getItem('key')!);
       window.localStorage.setItem('companies', JSON.stringify(companies));
@@ -64,7 +62,7 @@ const Home: React.FC = () => {
         <Col>
           {/* <Button onClick={retrieveAndStoreKey}>Store key</Button> */}
           {" "}
-          <Button onClick={async () => await retrieveAndStoreCompanies()}>Store Companies</Button>
+          <Button onClick={async () => await retrieveAndStoreCompaniesAsync()}>Store Companies</Button>
 
         </Col>
       </Row>

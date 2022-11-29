@@ -28,4 +28,15 @@ export class ApiHelper {
     //console.log(data);
     //return JSON.parse(data);
   };
+
+  submitCompanyAsync = async (company: Company) => {
+    await fetch('https://tqinterviewapi.azurewebsites.net/api/Companies?key=4777644c-b557-48ea-bff1-9b93599f0f7a', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(company),
+    }); //.then(() => { console.log('New company added ') }).catch(error => console.log(error))
+  };
 }
