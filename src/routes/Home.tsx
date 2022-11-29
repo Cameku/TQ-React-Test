@@ -1,8 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Container, Row, Col, Button } from 'react-bootstrap';
-//import { Company } from "../models/Company";
-//import { Link } from 'react-router-dom';
 import { ApiHelper } from '../helpers/ApiHelper';
 
 
@@ -12,6 +10,11 @@ import { ApiHelper } from '../helpers/ApiHelper';
 const Home: React.FC = () => {
   // const [key, setKey] = useState('');
   //const [compData, setCompData] = useState<Company[]>([]);
+
+  useEffect(() => {
+    retrieveAndStoreKey();
+    retrieveAndStoreCompanies();
+  }, [])
 
   //Instantiate api helper
   const apiHelper = new ApiHelper();
@@ -28,7 +31,7 @@ const Home: React.FC = () => {
       const companies = await apiHelper.getCompaniesAsync(window.localStorage.getItem('key')!);
       window.localStorage.setItem('companies', JSON.stringify(companies));
     } catch (error) {
-      alert(error);
+      alert("Sorry about this, please click ok to continue!");
     }
 
   }
@@ -59,7 +62,7 @@ const Home: React.FC = () => {
           <Link to='/EmployeesModal' className="btn btn-primary">Employees Modal</Link> */}
         </Col>
         <Col>
-          <Button onClick={retrieveAndStoreKey}>Store key</Button>
+          {/* <Button onClick={retrieveAndStoreKey}>Store key</Button> */}
           {" "}
           <Button onClick={async () => await retrieveAndStoreCompanies()}>Store Companies</Button>
 
