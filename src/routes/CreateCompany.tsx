@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import { Container, Row, Col, Form, Button, } from 'react-bootstrap';
 import { ApiHelper } from '../helpers/ApiHelper';
+import { LocalStorageHelper } from '../helpers/LocalStorageHelper';
 import { Company } from '../models/Company';
 import { Employee } from '../models/Employee';
+import { useHistory } from 'react-router-dom';
 
 
 
@@ -15,22 +17,29 @@ const CreateCompany: React.FC = () => {
   const [employeeAge, setEmployeeAge] = useState<number>(0);
   const [employeeList, setEmployeeList] = useState<Employee[]>([]);
 
+  let history = useHistory();
 
 
   //Post company data
-  const submitCompany = async (e: { preventDefault: () => void; }) => {
+  const submitCompanyAsync = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     const company: Company = { name, address, url, employees: employeeList }
     console.log(company);
 
     //Instantiate api helper
     const apiHelper = new ApiHelper();
+    const storageHelper = new LocalStorageHelper();
     try {
-      await apiHelper.submitCompanyAsync(company);
+
+      let isSubmitted = await apiHelper.submitCompanyAsync(company, storageHelper.get('api-key')!);
+      if (isSubmitted) {
+        history.push("/Companies");
+      }
     } catch (error) {
       console.log(error);
     }
   }
+
 
   //Add to employee list
   const addEmployees = () => {
@@ -46,6 +55,7 @@ const CreateCompany: React.FC = () => {
     setEmployeeList(list)
   }
 
+
   return (
     <div className=''>
 
@@ -55,7 +65,7 @@ const CreateCompany: React.FC = () => {
             <br />
             <h2>Create Company</h2><br /><br />
 
-            <Form style={{ width: '40rem' }} onSubmit={submitCompany}>
+            <Form style={{ width: '40rem' }} >
               <Form.Group className="mb-3" controlId="formCompanyName" >
                 <Form.Label>Company Name</Form.Label>
                 <Form.Control
@@ -84,9 +94,9 @@ const CreateCompany: React.FC = () => {
                   value={url}
                   onChange={(e) => setUrl(e.target.value)} />
               </Form.Group>
-            </Form>
-            <br /><hr />
-            <Form>
+
+              <br /><hr />
+
               <Form.Group className="mb-3" controlId="formEmployeeName">
                 <Form.Label>Employee Name</Form.Label>
                 <Form.Control
@@ -106,12 +116,12 @@ const CreateCompany: React.FC = () => {
               </Form.Group>
             </Form>
             <Button variant="primary" type="submit" onClick={addEmployees}>
-              Add  to Employee list
-            </Button> {' '}
+              Add Employee
+            </Button>{" "}
 
 
-            <Button variant="primary" type="submit">
-              Save  Company and Employees
+            <Button variant="primary" type="submit" onClick={submitCompanyAsync}>
+              Save
             </Button>
 
             <hr />
@@ -124,8 +134,8 @@ const CreateCompany: React.FC = () => {
               employeeList.map((employee, index) => (
                 <div key={index}>
                   <Row>
-                    <Col>Name: {employee.name}</Col>
-                    <Col>Age: {employee.age}</Col>
+                    <Col>Name: <b>{employee.name}</b></Col>
+                    <Col>Age: <b>{employee.age} </b></Col>
                     <Button
                       variant='danger'
                       style={{ marginBottom: "5px" }}

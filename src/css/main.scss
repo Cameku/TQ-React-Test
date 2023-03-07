@@ -5,3 +5,37 @@
 @import '~bootstrap/scss/bootstrap';
 
 //Add any global CSS to be applied here.
+@import url('https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i');
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+//Different screens
+$bp: (
+  mobile: 480px,
+  tablet: 768px,
+  desktop: 960px,
+  extraLarges: 1440px,
+);
+
+//Changing The Default Settings..
+
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+@mixin query($display) {
+  @each $key, $value in $bp {
+    //  defining max-width
+    @if ($display == $key) {
+      @media (max-width: $value) {
+        @content;
+      }
+    }
+  }
+}
