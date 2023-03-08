@@ -6,11 +6,18 @@ import { LocalStorageHelper } from '../helpers/LocalStorageHelper';
 import { Company } from '../models/Company';
 import CompanyCard from '../views/CompanyCard';
 
+import { toast } from 'react-toastify';
 
-const Companies: React.FC = (props) => {
+import 'react-toastify/dist/ReactToastify.css';
+// minified version is also included
+// import 'react-toastify/dist/ReactToastify.min.css';
+
+
+const Companies: React.FC = () => {
 
   const apiHelper = new ApiHelper();
   const storageHelper = new LocalStorageHelper();
+
 
   const [companies, setCompanies] = useState<Company[]>([]);
 
@@ -22,13 +29,13 @@ const Companies: React.FC = (props) => {
         storageHelper.store('companies', JSON.stringify(retrievedCompanies));
         setCompanies(retrievedCompanies);
       } else {
-        alert('Could not retrieve companies');
+        toast("Could not store new company data! ", { type: toast.TYPE.ERROR });
       }
 
     } catch (error) {
-      console.log('Could not store new company data - (toaste here!) - ' + error);
-    }
 
+      toast('Could not retrieve companies details, Please try again ', { type: toast.TYPE.ERROR });
+    }
   }
 
   useEffect(() => {
