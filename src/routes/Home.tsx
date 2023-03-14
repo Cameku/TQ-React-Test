@@ -10,7 +10,6 @@ const Home: React.FC = () => {
   useEffect(() => {
     const runAsync = async () => {
       await retrieveAndStoreKeyAsync();
-      // retrieveAndStoreCompaniesAsync(key);
     };
 
     runAsync();
@@ -27,23 +26,6 @@ const Home: React.FC = () => {
     storageHelper.store('api-key', key)
     return key;
   }
-
-  //Retrieve and store company
-  /*   const retrieveAndStoreCompaniesAsync = async (key: string) => {
-      try {
-        const companies = await apiHelper.getCompaniesAsync(key);
-        if (Array.isArray(companies) && companies.length > 0) {
-          storageHelper.store('companies', JSON.stringify(companies));
-        }
-        else {
-          alert("No company is retrieved! - 1");
-        }
-      } catch (error) {
-        console.log("Retrieve and store company" + error);
-        alert("No company is retrieved! - error caught!");
-      }
-  
-    } */
 
   //view company
   let history = useHistory();
@@ -66,7 +48,7 @@ const Home: React.FC = () => {
       </Row>
       <Row>
         <Col>
-          <Button onClick={viewCompany}>View Companies</Button>{' '}
+          <Button type='button' onClick={viewCompany}>View Companies</Button>{' '}
           {/*    <Link to='/Companies' className="btn btn-primary">Companies Using Link</Link>{' '}
           <Link to='/EmployeesModal' className="btn btn-primary">Employees Modal</Link> */}
         </Col>
